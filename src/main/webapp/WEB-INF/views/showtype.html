@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All type</title>
+    <style>
+        * {
+            margin: 0;
+            border: 0;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2 {
+            display: flex;
+            color: white;
+            background-color: blue;
+            justify-content: center;
+        }
+
+        td {
+            border: 1px solid black;
+            margin-top: 5px;
+        }
+
+        .direction {
+            margin-top: 5px;
+            display: flex;
+        }
+
+        input {
+            width: 200px;
+            border: 0.5px solid black;
+        }
+
+        form {
+            margin-top: 10px;
+        }
+
+        table {
+            margin-top: 10px;
+        }
+
+        .type-name {
+            width: 200px;
+            justify-content: center;
+        }
+
+    </style>
+</head>
+<body>
+<h2>These are all types we have</h2>
+<a th:href="@{/type/create}">Create new type</a>
+<div class="content">
+    <table>
+        <tr>
+            <td>Name</td>
+            <td colspan="2">Action</td>
+        </tr>
+        <tr th:each="type : ${types}">
+            <td class="type-name" th:text="*{type.name}"><input type="hidden" th:value="*{type.id}"></td>
+            <td><a th:href="@{/type/edit/{id}(id=${type.getId()})}">Edit</a></td>
+            <td><a th:href="@{/type/delete/{id}(id=${type.getId()})}">Delete</a></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

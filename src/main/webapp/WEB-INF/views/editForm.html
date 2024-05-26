@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+    <style>
+        h2 {
+            display: flex;
+            color: white;
+            background-color: blue;
+            justify-content: center;
+        }
+
+        .content {
+            display: flex;
+            justify-content: center;
+        }
+
+        button {
+            border-color: blue;
+            margin-top: 15px;
+            width: 150px;
+            height: 40px;
+            border-radius: 50px;
+            color: white;
+            background-color: blue;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+<h2>Edit type</h2>
+<div class="content">
+
+    <form th:action="@{/type/edit}" method="post">
+        <table>
+            <tr>
+                <td>
+                    <input type="hidden" th:field="*{type.id}">
+                    <input th:field="*{type.name}">
+                    <div th:if="${#fields.hasErrors('type.name')}" th:errors="*{type.name}"></div>
+                </td>
+            </tr>
+        </table>
+        <button type="submit">Save</button>
+    </form>
+</div>
+
+</body>
+</html>

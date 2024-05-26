@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+    <style>
+        * {
+            margin: 0;
+            border: 0;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2 {
+            display: flex;
+            color: white;
+            background-color: blue;
+            justify-content: center;
+        }
+
+        td {
+            border: 1px solid black;
+        }
+
+        .direction {
+            margin-top: 5px;
+            display: flex;
+        }
+        input{
+            width: 200px;
+            border: 0.5px solid black;
+        }
+        form{
+            margin-top: 10px;
+        }
+        table{
+            margin-top: 10px;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Welcome to my homepage</h2>
+    <div class="content">
+        <form th:action="@{/tour/find}">
+            <input type="text" th:name="destination" placeholder="Where do you want to go ?">
+            <button type="submit">Find</button>
+        </form>
+        <table th:object="${tours}">
+            <tr>
+                <td>Destination</td>
+                <td>Code</td>
+                <td>Price</td>
+                <td>Type</td>
+                <td>Action</td>
+            </tr>
+            <tr th:each="tour : ${tours}">
+                <td th:text="${tour.destination}">
+                </td>
+                <td th:text="${tour.code}"></td>
+                <td th:text="${tour.price}"></td>
+                <td th:text="${tour.type.name}"></td>
+                <td>
+                    <a th:href="@{/tour/update/{id}(id=${tour.getId()})}">update</a>
+                    <a th:href="@{/tour/delete/{id}(id=${tour.getId()})}">delete</a>
+                </td>
+
+            </tr>
+        </table>
+        <div class="direction">
+            <a th:if="${tours.hasPrevious()}"
+               th:href="@{/tour/(page=${tours.number - 1})}">Previous</a>
+
+            <span th:text="${tours.number + 1}"></span> | <span th:text="${tours.totalPages}"></span>
+
+            <a th:if="${tours.hasNext()}"
+               th:href="@{/tour/(page=${tours.number + 1})}">Next</a>
+        </div>
+        <form th:action="@{/tour/create}">
+            <button class="create-new" type="submit">Tạo mới một chuyến đi</button>
+        </form>
+
+    </div>
+</div>
+</body>
+</html>

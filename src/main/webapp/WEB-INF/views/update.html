@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>update</title>
+    <style>
+        * {
+            margin: 0;
+            border: 0;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2 {
+            display: flex;
+            color: white;
+            background-color: blue;
+            justify-content: center;
+        }
+
+        td {
+            border: 1px solid black;
+        }
+
+
+        form {
+            margin-top: 10px;
+        }
+
+        .submit {
+            display: flex;
+            justify-content: center;
+        }
+
+        button {
+            border-color: blue;
+            margin-top: 15px;
+            width: 150px;
+            height: 40px;
+            border-radius: 50px;
+            color: white;
+            background-color: blue;
+            justify-content: center;
+        }
+
+    </style>
+</head>
+<body>
+<h2>Edit tour</h2>
+<div class="content">
+    <form th:action="@{/tour/edit}" method="post">
+        <table th:object="${tour}">
+            <tr>
+                <td>Destination</td>
+                <td>Code</td>
+                <td>Price</td>
+                <td>Type</td>
+
+            </tr>
+            <tr>
+                <td>
+                    <input type="hidden" th:field="*{id}">
+
+                    <input type="text" th:field="*{destination}">
+                    <div th:if="${#fields.hasErrors('destination')}" th:errors="*{destination}"></div>
+
+                </td>
+                <td>
+                    <input type="text" th:field="*{code}">
+                    <div th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></div>
+
+                </td>
+                <td>
+                    <input type="text" th:field="*{price}">
+                    <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+
+                </td>
+                <td>
+                    <select th:field="*{type}">
+                        <option th:each="type :${types}" th:value="${type.id}" th:text="${type.name}"></option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <div class="submit">
+            <button type="submit">Save</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+    <title>Create Tour</title>
+    <style>
+        h2 {
+            display: flex;
+            color: white;
+            background-color: blue;
+            justify-content: center;
+        }
+        input{
+            position: fixed;
+            left: 100px;
+        }
+        div{
+            margin-top: 10px;
+        }
+        button{
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<h2>Add Tour</h2>
+
+<div id="form">
+    <form th:action="@{/tour/add}" th:object="${tour}"
+          method="POST">
+        <input type="hidden" th:field="*{id}"/>
+        <div class="destination">
+            <span>Destination</span>
+            <input type="text" th:field="*{destination}"/>
+            <div th:if="${#fields.hasErrors('destination')}" th:errors="*{destination}"></div>
+        </div>
+        <div  class="Code">
+            <span>Code</span>
+            <input type="text" th:field="*{code}"/>
+            <div th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></div>
+        </div>
+        <div class="Price">
+            <span>Price</span>
+            <input type="text" th:field="*{price}"/>
+            <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+        </div>
+        <div>
+            <select th:field="*{type.id}">
+                <option th:each="type : ${types}" th:value="${type.id}" th:text="${type.name}"></option>
+            </select>
+        </div>
+        <button type="submit">Create</button>
+    </form>
+</div>
+
+</body>
+</html>
